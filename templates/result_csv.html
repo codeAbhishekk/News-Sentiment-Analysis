@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Sentiment Result</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CSV Sentiment Analysis Result</h1>
+        <img src="data:image/png;base64,{{ image_base64 }}" alt="Word Cloud">
+        <h2>Sentiment Analysis Data</h2>
+        <div>{{ df|safe }}</div>
+        <a href="{% url 'analyze_csv' %}">Analyze Another CSV</a>
+        <br>
+        <a href="/static/sentiment_analysis_results.csv" download>Download Result CSV</a>
+    </div>
+</body>
+</html>

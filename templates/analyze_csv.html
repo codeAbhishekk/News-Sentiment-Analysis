@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analyze CSV</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Analyze CSV Sentiment</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file">Upload CSV:</label>
+            <input type="file" id="file" name="file" accept=".csv">
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+</body>
+</html>

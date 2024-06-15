@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Result</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Result</h1>
+        <p>The sentiment of the text "<strong>{{ text }}</strong>" is <strong>{{ sentiment_label }}</strong>.</p>
+        <a href="{% url 'analyze_text' %}">Analyze Another Text</a>
+    </div>
+</body>
+</html>

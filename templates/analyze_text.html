@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analyze Text</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Analyze Text Sentiment</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="text">Enter Text:</label>
+            <textarea id="text" name="text" rows="4" cols="50"></textarea>
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+</body>
+</html>
