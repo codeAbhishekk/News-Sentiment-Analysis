@@ -10,18 +10,7 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 
-# def load_sentiment_model():
-#     try:
-#         with open('analyzer/sentiment_model.pkl', 'rb') as file:
-#             pickled_objects = pickle.load(file)
-#             get_sentiment = pickled_objects['get_sentiment']
-#         return get_sentiment
-#     except FileNotFoundError:
-#         raise FileNotFoundError("sentiment_model.pkl not found. Make sure it exists and is accessible.")
-#     except (pickle.UnpicklingError, KeyError) as e:
-#         raise RuntimeError("Error loading sentiment_model.pkl: {}".format(e))
 
-# get_sentiment = load_sentiment_model()
 
 def get_sentiment(text):
     blob=TextBlob(text)
@@ -39,9 +28,7 @@ def generate_word_cloud(text):
     plt.close()
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
-# def home(request):
-#     df = pd.read_csv('analyzer/analyzed_data.csv')
-#     return render(request, 'home.html', {'df': df.to_html(classes='table table-striped')})
+
 
 def scrape_and_analyze_news():
     base_url = 'https://www.ndtv.com/latest/page-'
@@ -56,7 +43,7 @@ def scrape_and_analyze_news():
         items = soup.find_all('div', class_='news_Itm')
         
         for index, item in enumerate(items):
-            # Skip every 4th and 8th item
+            # Skip every 4th and 8th item, as these contain add.
             if (index + 1) in [4, 8]:
                 continue
             
