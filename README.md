@@ -69,13 +69,13 @@ Navigate to the "Upload CSV" page using the link on the home page. Upload a CSV 
 Here are some suggested screenshots to include in your README.md:
 
 1. **Home Page**: Displaying the scraped news articles and their sentiments.
-   ![Home Page](screenshots/home-page.png)
+   ![Home Page](Screenshots/home-page.png)
 
 2. **Analyze News Text**: The form for inputting text and analyzing sentiment.
-   ![Analyze News Text](screenshots/analyze_text.png)
+   ![Analyze News Text](Screenshots/analyze_text.png)
 
 3. **Upload CSV**: The interface for uploading a CSV file and displaying sentiments.
-   ![Upload CSV](screenshots/analyze_csv.png)
+   ![Upload CSV](Screenshots/analyze_csv.png)
 
 *Replace the placeholder links with actual screenshots from your application.*
 
