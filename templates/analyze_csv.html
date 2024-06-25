@@ -12,6 +12,12 @@
             <input type="file" id="file" name="file" accept=".csv">
             <button type="submit">Analyze</button>
         </form>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'analyze_text' %}">Analyze News Text</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
     </div>
 </body>
 </html>

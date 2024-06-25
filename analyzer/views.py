@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import requests
+from bs4 import BeautifulSoup
 import pandas as pd
 import dill as pickle
 from textblob import TextBlob
@@ -8,18 +10,24 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 
-def load_sentiment_model():
-    try:
-        with open('analyzer/sentiment_model.pkl', 'rb') as file:
-            pickled_objects = pickle.load(file)
-            get_sentiment = pickled_objects['get_sentiment']
-        return get_sentiment
-    except FileNotFoundError:
-        raise FileNotFoundError("sentiment_model.pkl not found. Make sure it exists and is accessible.")
-    except (pickle.UnpicklingError, KeyError) as e:
-        raise RuntimeError("Error loading sentiment_model.pkl: {}".format(e))
+# def load_sentiment_model():
+#     try:
+#         with open('analyzer/sentiment_model.pkl', 'rb') as file:
+#             pickled_objects = pickle.load(file)
+#             get_sentiment = pickled_objects['get_sentiment']
+#         return get_sentiment
+#     except FileNotFoundError:
+#         raise FileNotFoundError("sentiment_model.pkl not found. Make sure it exists and is accessible.")
+#     except (pickle.UnpicklingError, KeyError) as e:
+#         raise RuntimeError("Error loading sentiment_model.pkl: {}".format(e))
 
-get_sentiment = load_sentiment_model()
+# get_sentiment = load_sentiment_model()
+
+def get_sentiment(text):
+    blob=TextBlob(text)
+    return blob.sentiment.polarity
+
+
 
 def generate_word_cloud(text):
     cloud = WordCloud(max_words=50, stopwords=set(stopwords.words("english"))).generate(str(text))
@@ -31,14 +39,50 @@ def generate_word_cloud(text):
     plt.close()
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
+# def home(request):
+#     df = pd.read_csv('analyzer/analyzed_data.csv')
+#     return render(request, 'home.html', {'df': df.to_html(classes='table table-striped')})
+
+def scrape_and_analyze_news():
+    base_url = 'https://www.ndtv.com/latest/page-'
+    pages = range(1, 9)  # Pages 1 to 8
+    
+    data = []
+    
+    for page_num in pages:
+        url = base_url + str(page_num)
+        html_text = requests.get(url).text
+        soup = BeautifulSoup(html_text, 'lxml')
+        items = soup.find_all('div', class_='news_Itm')
+        
+        for index, item in enumerate(items):
+            # Skip every 4th and 8th item
+            if (index + 1) in [4, 8]:
+                continue
+            
+            headline_tag = item.find('h2', class_='newsHdng')
+            content_tag = item.find('p', class_='newsCont')
+            
+            if headline_tag and content_tag:
+                headline = headline_tag.text.strip()
+                content = content_tag.text.strip()
+                sentiment = get_sentiment(content)
+                sentiment_label = 'positive' if sentiment > 0 else 'negative' if sentiment < 0 else 'neutral'
+                
+                data.append({'index': index + 1, 'headline': headline, 'content': content, 'sentiment': sentiment, 'sentiment_label': sentiment_label})
+    
+    return pd.DataFrame(data)
+
+# Home view
 def home(request):
-    df = pd.read_csv('analyzer/pre_analyzed_data.csv')
+    df = scrape_and_analyze_news()
     return render(request, 'home.html', {'df': df.to_html(classes='table table-striped')})
 
 def analyze_text(request):
     if request.method == 'POST':
         text = request.POST['text']
-        sentiment = get_sentiment(text)
+        blob = TextBlob(text)
+        sentiment =blob.sentiment.polarity # get_sentiment(text)
         sentiment_label = 'positive' if sentiment > 0 else 'negative' if sentiment < 0 else 'neutral'
         return render(request, 'result.html', {'sentiment_label': sentiment_label, 'text': text})
     return render(request, 'analyze_text.html')
