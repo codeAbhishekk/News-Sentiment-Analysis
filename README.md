@@ -10,7 +10,6 @@ Welcome to the News Sentiment Analysis Project! This project involves building a
 - [Screenshots](#screenshots)
 - [Technologies Used](#technologies-used)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -77,12 +76,12 @@ Here are some suggested screenshots to include in your README.md:
 3. **Upload CSV**: The interface for uploading a CSV file and displaying sentiments.
    ![Upload CSV](Screenshots/analyze_csv.png)
 
-*Replace the placeholder links with actual screenshots from your application.*
+
 
 ## Technologies Used
 
 - **Backend**: Django
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML,
 - **Web Scraping**: Beautiful Soup
 - **Sentiment Analysis**: TextBlob
 - **Data Handling**: Pandas
