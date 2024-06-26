@@ -46,6 +46,20 @@ This project aims to scrape news headlines and content from the NDTV news websit
 ## Installation
 
 Clone the repository:
+Open Git Bash and change the directory to the location where the repository is to be cloned. Then, type the following commands.
+
+  git init
+  git clone https://github.com/anuj120377/News-Sentiment-Analysis.git
+Now, Navigate into the project directory
+
+  cd News-Sentiment-Analysis
+Again,
+
+  cd djangoNewsSentimentAnalysis
+To access or use the application, run the following command.
+
+python manage.py runserver
+Finally, Open your web browser and go to http://localhost:8000/ to view the News Sentiment Analysis application.
 
 ## Usage Guide
 
